@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: reserva-api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: usuario-service
+          uri: lb://APIRESERVA-USUARIO-SERVICE
+          predicates:
+            - Path=/api-usuario/**
+        - id: reserva-service
+          uri: lb://APIRESERVA-RESERVA-SERVICE
+          predicates:
+            - Path=/api-reserva/**
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
